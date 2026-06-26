@@ -1,0 +1,58 @@
+site:
+  name: "My Tailored Drupal Site"
+  admin_user: "admin"
+  # Leave admin_pass unset to have a strong password generated and shown once
+  # during `drush dq:scaffold`. Set it explicitly only if you must — it then
+  # lives here in plaintext until `dq:cleanup` redacts it on archive.
+  # admin_pass: "change-me"
+
+theme:
+  machine_name: "my_custom_theme"
+  title: "My Custom Theme"
+  # A design preset shipped by the starterkit (see its package.json "dq.presets").
+  # Available out of the box: minimal, corporate. Omit to use the starterkit's
+  # default. Change it later with `npm run preset <name>` inside the theme.
+  preset: "minimal"
+  # Set to false to skip `npm install && npm run build` after theme generation.
+  # Useful when deferring the build to a CI step or building manually later.
+  build: true
+
+# Each recipe entry can be:
+#   - a short key from the registry (templates/recipe-registry.json), e.g. "blog"
+#   - a core/contrib path, e.g. "core/recipes/standard"
+#   - an inline package spec for an ad-hoc recipe (no registry edit needed):
+#       - { package: "you/recipe-x", url: "https://github.com/you/recipe-x" }
+# Run `composer exec dq-install` after editing — it fetches any package recipes
+# (registry keys or inline specs) before `drush dq:scaffold`.
+recipes:
+  - "core/recipes/standard"
+  - "blog"
+
+parameters:
+  # Override the chosen preset's design tokens. Persisted to presets/overrides.css
+  # and layered over the preset (preset <- these), so they drive utilities and
+  # are emitted as CSS variables. Conventional keys map to Tailwind tokens:
+  #   <name>_color -> --color-<name>  (e.g. bg-primary, text-secondary, var())
+  #   font_family  -> --font-sans
+  # Other keys become --<kebab> theme tokens, usable as var(--key).
+  theme_design:
+    primary_color: "#10b981"
+    secondary_color: "#1e3a8a"
+    font_family: "'Inter', sans-serif"
+
+  # drush config:set calls applied after recipes finish.
+  # Format: config-object-name → key (dot notation) → value
+  recipe_config:
+    "system.site":
+      slogan: "Scaffolded quickly, maintained sustainably."
+
+# Static site export (optional). Run `drush dq:static` to install Tome, export a
+# static HTML copy of the site to html/, and write a deploy config for the chosen
+# target. These values seed Drupal config (drupalquick.static) on first run so
+# they survive `drush dq:cleanup`, which deletes this file. See
+# docs/static-deploy.md for the full workflow and caveats.
+static:
+  # Deploy template to emit: netlify | github | none
+  target: "netlify"
+  # Production base URL for absolute links in the exported HTML (optional).
+  uri: "https://example.com"

@@ -1,0 +1,60 @@
+{
+    "name": "drupal-quick/site",
+    "description": "Project template for a drupal-quick site — Drupal + drupal-quick, pre-wired.",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/Drupal-Quick/drupal-quick",
+    "require": {
+        "composer/installers": "^2.0",
+        "drupal/core-composer-scaffold": "^11.1.8",
+        "drupal/core-recommended": "^11.1.8",
+        "drupal/core-recipe-unpack": "^1",
+        "drupal-quick/drupal-quick": "*",
+        "drush/drush": "^13"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "drupal/core-recipe-unpack": true
+        },
+        "sort-packages": true
+    },
+    "repositories": {
+        "drupal": {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        "drupal-quick": {
+            "type": "vcs",
+            "url": "https://github.com/Drupal-Quick/drupal-quick"
+        },
+        "dq_starterkit": {
+            "type": "vcs",
+            "url": "https://github.com/Drupal-Quick/dq-starterkit"
+        }
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
+        },
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
+            "web/modules/custom/{$name}": ["type:drupal-custom-module"],
+            "web/themes/custom/{$name}": ["type:drupal-custom-theme"],
+            "recipes/{$name}": ["type:drupal-recipe"]
+        }
+    }
+}

@@ -1,0 +1,46 @@
+# drupal-quick/site
+
+Project template for a [drupal-quick](https://github.com/Drupal-Quick/drupal-quick)
+site. It pre-wires Drupal core, drupal-quick (+ the starterkit theme), Drush, and
+the recipe unpacker — including the Composer repositories, `allow-plugins`, and
+stability settings — so going from empty folder to static site is just a handful
+of commands.
+
+## Quick start (DDEV)
+
+```bash
+# create + start the DDEV environment
+ddev config --project-type=drupal --docroot=web --nodejs-version=20 && ddev start
+
+# Drupal + drupal-quick, fully pre-wired by this template
+ddev composer create-project drupal-quick/site .
+
+# (a default config.dq.yml ships in this template — edit it to change the
+#  preset/recipes, or regenerate/customize interactively with dq-init)
+ddev composer exec -- dq-init --interactive   # optional
+
+# fetch the recipe packages named in config.dq.yml
+ddev composer exec -- dq-install
+
+# install Drupal, generate + build the theme, apply recipes
+ddev drush dq:scaffold
+
+# --- add content / configure as desired ---
+
+# generate the static export → html/, then publish it
+ddev drush dq:static
+ddev drush dq:deploy
+```
+
+## What this template provides
+
+- `drupal/core-recommended` + the relocated `web/` docroot scaffold.
+- `drupal-quick/drupal-quick` and `drupal-quick/dq_starterkit` via their VCS
+  repositories (not yet on Packagist), with `minimum-stability: dev`.
+- `drupal/core-recipe-unpack` and its `allow-plugins` entry, so recipes unpack
+  without prompting.
+- A seed `config.dq.yml` with sensible defaults (preset `minimal`, the `standard`
+  + `blog` recipes). Editing it is optional.
+
+Once drupal-quick and its packages are published to Packagist with stable tags,
+the `repositories` and `minimum-stability` settings here become unnecessary.

@@ -1,0 +1,27 @@
+# Composer / Drupal scaffold artifacts
+/vendor/
+/web/core/
+/web/modules/contrib/
+/web/themes/contrib/
+/web/profiles/contrib/
+/web/libraries/
+/recipes/
+
+# Drupal site files + settings
+/web/sites/*/files/
+/web/sites/*/private/
+/web/sites/*/settings.php
+/web/sites/*/settings.local.php
+/web/sites/*/services.yml
+
+# Generated theme build output + deps
+/web/themes/custom/*/node_modules/
+/web/themes/custom/*/dist/
+/web/themes/custom/*/.vite-dev
+
+# Static export + deploy
+/html/
+/netlify.toml
+
+# Deploy credentials (see dq-init --ddev)
+/.ddev/.env.web
